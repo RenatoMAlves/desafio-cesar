@@ -21,8 +21,8 @@ def root():
     return RedirectResponse('/docs')
 
 @app.post('/upload-and-predict')
-async def upload_data_and_predict(date_ref_col: str, mlflow_id: str, target_name: str, dataset: UploadFile=File(...)):
+async def upload_data_and_predict(dataset: UploadFile=File(...)):
     contents = await dataset.read()
-    predict_stats = pred.predict_response(contents, date_ref_col, mlflow_id, target_name)
+    predict_stats = pred.predict_response(contents)
 
     return {"Message": "The data was preprocessed and predicted!"}

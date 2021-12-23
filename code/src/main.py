@@ -9,6 +9,10 @@ from sklearn.preprocessing import StandardScaler
 from mlflow import log_metrics, log_params, log_artifacts, set_tags
 from mlflow.tracking import MlflowClient
 from sklearn.pipeline import Pipeline
+from pycaret.regression import *
+from pycaret.utils import check_metric
+
+sys.path.append(os.getcwd())
 
 class MainCore():
 
@@ -21,18 +25,19 @@ class MainCore():
         df = pd.read_csv(data, sep=';')
         return df
 
-    def predict_response(self, contents, date_ref_col, mlflow_id, target_name):
+    def predict_response(self, contents):
+        # df = pd.read_csv('~/Documents/CESAR/Desafio/dataset/Bias_correction_ucl_validation.csv', sep=',')
         df = self.get_df_from_binary(contents)
 
-        X, y = df[df[~target_name]], df[target_name]
-        X_train, X_test, y_train, y_test = train_test_split(X, y,random_state=11)
+        model = load_model('code/models/nxt_day_temp_prediction_et_22_12_2021_baseline')
 
-        pipe = Pipeline([('scaler', StandardScaler()), ('lr', LinearRegression())])
+        new_predictions = predict_model(model, data=df)
 
-        pipe.fit(X_train, y_train)
-        pipe.score(X_test, y_test)
+        new_predictions = new_predictions.rename({'Label': 'Next_Tmax'}, axis=1)
 
-        return False
+        return new_predictions
 
 if __name__ == '__main__': # pragma: no cover
     predCore = MainCore()
+
+    predCore.predict_response('')
