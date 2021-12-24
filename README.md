@@ -50,7 +50,7 @@ docker run -p 8000:8000 cesar-desafio
 Acesse a documentação para fazer a requisição de teste para o modelo acesse o endereço local do navegador através do seguinte link:
 [http://127.0.0.1:8000/docs#/](http://127.0.0.1:8000/docs#/)
 
-Para fazer uma requisição teste basta apenas clicar na opção POST /predict e em seguida **Try it out**. Nisso aparecerá uma caixa de texto para inserir o body, basta substituir a informação lá dentro pelos dados em forma de json e clicar em **execute**. Para fim de teste segue abaixo um exemplo de json preenchido para ser colocado. Este teste retornará o valor de 29.6º, por se tratar de uma temperatura o valor sempre é arredondado para 1 casa decimal. 
+Para fazer uma requisição teste basta apenas clicar na opção POST /predict e em seguida **Try it out**. Nisso aparecerá uma caixa de texto para inserir o body, basta substituir a informação lá dentro pelos dados em forma de json e clicar em **execute**. Para fim de teste segue abaixo um exemplo de json preenchido para ser colocado, os valores foram retirados do conjunto de validação utilizado no notebook **exploratory_prediction**. Este teste retornará o valor de 29.6º, por se tratar de uma temperatura o valor sempre é arredondado para 1 casa decimal. 
 ```
 {
   "input": {
