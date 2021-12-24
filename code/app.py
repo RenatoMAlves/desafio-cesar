@@ -1,9 +1,11 @@
 from fastapi.responses import RedirectResponse
-from fastapi import FastAPI, BackgroundTasks, UploadFile, File
-from starlette.requests import Request
-from starlette.responses import Response
+from fastapi import FastAPI
 from pydantic import BaseModel
 from src.main import MainCore
+import cloudpickle
+
+class InputJson(BaseModel):
+    input = {}
 
 app = FastAPI(
     title='desafio-cesar',
@@ -20,9 +22,9 @@ def health():
 def root():
     return RedirectResponse('/docs')
 
-@app.post('/upload-and-predict')
-async def upload_data_and_predict(dataset: UploadFile=File(...)):
-    contents = await dataset.read()
-    predict_stats = pred.predict_response(contents)
+@app.post('/predict')
+def predict(input_json: InputJson):
 
-    return {"Message": "The data was preprocessed and predicted!"}
+    prediction = pred.predict_response(input_json)
+
+    return {'Prediction result:', prediction}
