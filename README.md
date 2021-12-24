@@ -22,36 +22,36 @@ Para a construção do modelo e deploy as bibliotecas utilizadas foram:
 ## Setup para Jupyter-notebooks
 
 Os Notebooks estão localizados dentro da pasta **code/notebooks**. Caso queira executar os notebooks novamente, é aconselhado criar um ambiente para instalação dos pacotes python a serem executados neste projeto. Para isso basta entrar na pasta code e digitar o seguinte comando no terminal (caso queira criar o ambiente em outra pasta não há problema).
-
-'''
-python3 -m venv /cesar-env
-'''
+```
+$ python3 -m venv /cesar-env
+$ source cesar/bin/activate
+```
 
 este comando deve ser seguido da instalação dos pacotes:
-'''
+```
 pip install -r requirements.txt
-'''
+```
 
 Ao fim da instalação dos pacotes os notebooks podem ser executados.
 
 ## Setup para API com modelo
 
 Para o deploy da API foi criado um container docker que hospeda tanto o PyCaret quanto o FastAPI. De inicio é necessário fazer o build da imagem criada no Dockerfile. Para isso execute as seguintes linhas de código no terminal:
-'''
-cd code/
-docker build -t desafio-cesar .
-'''
+```
+$ cd code/
+$ docker build -t desafio-cesar .
+```
 
 Após isso será iniciado o processo de building do container e instalação dos pacotes. Após a ter a instalação finalizada é necessário executar o container que executará o Uvicorn para a requisição. Para isso rode o comando:
-'''
+```
 docker run -p 8000:8000 cesar-desafio
-'''
+```
 
 Acesse a documentação para fazer a requisição de teste para o modelo acesse o endereço local do navegador através do seguinte link:
 [http://127.0.0.1:8000/docs#/](http://127.0.0.1:8000/docs#/)
 
 Para fazer uma requisição teste basta apenas clicar na opção POST /predict e em seguida **Try it out**. Nisso aparecerá uma caixa de texto para inserir o body, basta substituir a informação lá dentro pelos dados em forma de json e clicar em **execute**. Para fim de teste segue abaixo um exemplo de json preenchido para ser colocado. Este teste retornará o valor de 29.6º, por se tratar de uma temperatura o valor sempre é arredondado para 1 casa decimal. 
-'''
+```
 {
   "input": {
         "station": 1.0,
@@ -74,7 +74,7 @@ Para fazer uma requisição teste basta apenas clicar na opção POST /predict e
         "Solar radiation": 5275.070313
     }
 }
-'''
+```
 
 ## Dúvidas
 
